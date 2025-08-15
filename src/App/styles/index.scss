@@ -1,0 +1,87 @@
+/* ===========================
+   1. Сброс стилей (reset)
+   =========================== */
+
+/* Убираем отступы и приводим box-sizing к единому виду */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Убираем стандартные стили списков */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Убираем подчёркивания и наследуем цвет у ссылок */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Кнопки без дефолтных стилей браузера */
+button {
+  font: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Для картинок — чтобы они не вылезали за контейнер */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Формы без дефолтных стилей браузера */
+input,
+textarea,
+select {
+  font: inherit;
+  border: none;
+  outline: none;
+}
+
+/* ===========================
+   2. Базовые шрифты и цвета
+   =========================== */
+
+html {
+  font-size: 16px; /* удобнее потом в rem */
+}
+
+body {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* ===========================
+   3. Переменные (темы)
+   =========================== */
+:root {
+  /* Цвета */
+  --color-primary: #005aa8;
+  --color-text: #000000;
+  --color-bg: #ffffff;
+
+  /* Контейнер */
+  --container-width: 1200px;
+  --container-padding: 16px;
+}
+
+/* ===========================
+   4. Общий контейнер
+   =========================== */
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
