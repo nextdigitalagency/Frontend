@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 
 export default function About() {
 	const baseTransition = {
-		type: "tween",
+		type: "tween" as const,
 		duration: 0.4,
-		ease: "easeOut",
+		ease: "easeOut" as const,
 	};
 
 	const textAnimation = (delay: number) => ({

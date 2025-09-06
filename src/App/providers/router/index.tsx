@@ -11,6 +11,9 @@ import Header from "../../../Widgets/Header/Header.tsx";
 import PageTransition from "../../../Shared/ui/PageTransition/PageTransition.tsx";
 import InitialLoader from "../../../Shared/ui/InitialLoader/InitialLoader.tsx";
 
+// Определяем dev режим
+const isDev = import.meta.env.MODE === "development";
+
 // Анимированные роуты
 const AnimatedRoutes = () => {
 	const location = useLocation();
@@ -58,14 +61,20 @@ const AnimatedRoutes = () => {
 	);
 };
 
-// Роутер с первым экраном загрузки
+// Роутер с первым экраном загрузки (только не в dev)
 export const AppRouter = () => {
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(!isDev); // в dev — сразу false
 
 	useEffect(() => {
-		const timer = setTimeout(() => setIsLoading(false), 3000); // 3 секунды
-		return () => clearTimeout(timer);
+		if (!isDev) {
+			const timer = setTimeout(() => setIsLoading(false), 3000);
+			return () => clearTimeout(timer);
+		}
 	}, []);
 
-	return <BrowserRouter>{isLoading ? <InitialLoader /> : <AnimatedRoutes />}</BrowserRouter>;
+	return (
+		<BrowserRouter>
+			{isLoading ? <InitialLoader onFinish={() => setIsLoading(false)} /> : <AnimatedRoutes />}
+		</BrowserRouter>
+	);
 };

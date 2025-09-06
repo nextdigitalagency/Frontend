@@ -13,13 +13,23 @@ type Props = {
 	onClose: () => void;
 };
 
+// описываем все поля формы
+type FormValues = {
+	name: string;
+	phone: string;
+	email: string;
+	company: string;
+	tags: string[];
+};
+
 export const Drawer = ({ isOpen, onClose }: Props) => {
 	const [show, setShow] = useState(isOpen);
 	const [closing, setClosing] = useState(false);
 	const [selectedBudgetTag, setSelectedBudgetTag] = useState<string | null>(null);
 	const [consent, setConsent] = useState(false);
 
-	const methods = useForm({
+	// прокидываем тип
+	const methods = useForm<FormValues>({
 		mode: "onChange",
 		reValidateMode: "onChange",
 		defaultValues: {
@@ -38,16 +48,16 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 		formState: { isValid, errors },
 	} = methods;
 
-	const selectedTags = watch("tags") as string[];
+	const selectedTags = watch("tags");
 
-	// Регистрация поля tags для валидации
+	// регистрация поля tags для валидации
 	useEffect(() => {
 		methods.register("tags", {
-			validate: (value: string[]) => (value && value.length > 0 ? true : "Это поле обязательно"),
+			validate: (value) => (value && value.length > 0 ? true : "Это поле обязательно"),
 		});
 	}, [methods]);
 
-	const onSubmit = (data: any) => {
+	const onSubmit = (data: FormValues) => {
 		console.log("Form submitted:", { ...data, selectedTags, selectedBudgetTag, consent });
 	};
 
@@ -58,8 +68,9 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 			? selectedTags.filter((t) => t !== tag)
 			: [...selectedTags, tag];
 
+		// теперь TS знает, что tags — это string[]
 		setValue("tags", updated, { shouldValidate: true });
-		setTagsTouched(true); // отмечаем как тронутые
+		setTagsTouched(true);
 	};
 
 	const toggleBudgetTag = (tag: string) =>
@@ -98,7 +109,7 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 							<ProjectForm
 								selectedTags={selectedTags}
 								toggleTag={toggleTag}
-								error={errors.tags?.message as string | undefined}
+								error={errors.tags?.message}
 								touched={tagsTouched}
 							/>
 							<BudgetSelector

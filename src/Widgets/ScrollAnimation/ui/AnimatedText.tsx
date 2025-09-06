@@ -11,7 +11,6 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
 	const [translateX, setTranslateX] = useState(0);
 	const { direction } = useScrollDirection();
 	const containerRef = useRef<HTMLDivElement>(null);
-	const isScrolling = useRef(false);
 
 	useEffect(() => {
 		const handleScroll = () => {

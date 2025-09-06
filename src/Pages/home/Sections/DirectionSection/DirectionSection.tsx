@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import styles from "./DirectionSection.module.scss";
 import sampleVideo from "../../../../Shared/assets/video/abstract.mp4"; // импорт видео
+import SectionInfo from "../../../../Shared/ui/SectionInfo/SectionInfo";
 
 export default function DirectionSection() {
 	const baseTransition = {
-		type: "tween",
+		type: "tween" as const,
 		duration: 0.4,
-		ease: "easeOut",
+		ease: "easeOut" as const,
 	};
 
 	const textAnimation = (delay: number) => ({
@@ -42,27 +43,13 @@ export default function DirectionSection() {
 
 	return (
 		<section className={styles.directions}>
-			<div className={styles.header}>
-				<p className={styles.subtitle}>подход к работе</p>
-				<div className={styles.textBlock}>
-					<motion.h2
-						initial={{ y: 100, opacity: 0 }}
-						whileInView={{ y: 0, opacity: 1 }}
-						transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-						viewport={{ once: true }}>
-						Синтез передового опыта <br /> и digital продуктов
-					</motion.h2>
-
-					<motion.p
-						initial={{ y: 100, opacity: 0 }}
-						whileInView={{ y: 0, opacity: 1 }}
-						transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
-						viewport={{ once: true }}>
-						Мы взяли все самое лучшее из мира дизайна, маркетинга и технологий, <br /> чтобы
-						создавать уникальные digital продукты.
-					</motion.p>
-				</div>
-			</div>
+			<SectionInfo
+				subtitle='подход к работе'
+				title={"Синтез передового опыта\nи digital продуктов"}
+				description={
+					"Мы взяли все самое лучшее из мира дизайна, маркетинга и технологий,\nчтобы создавать уникальные digital продукты."
+				}
+			/>
 
 			<div className={styles.grid}>
 				{cards.map((card, idx) => {
