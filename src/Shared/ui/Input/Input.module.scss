@@ -1,0 +1,31 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.myInput {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.15s ease-in-out;
+
+  &:hover {
+    border-color: var(--color-primary-hover);
+  }
+
+  &:focus {
+    border-color: var(--color-primary-hover);
+    outline: none;
+  }
+}
+
+.inputError {
+  border-color: red;
+}
+
+.errorText {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}

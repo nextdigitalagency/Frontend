@@ -1,0 +1,31 @@
+/* NavItem.module.scss */
+
+.navItem {
+  font-size: 42px;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background-color: var(--color-primary-hover);
+    transition: width 0.3s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+
+  @media (max-width: 1020px) {
+    font-size: 32px;
+  }
+}

@@ -1,0 +1,119 @@
+import { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import { useForm, FormProvider } from "react-hook-form";
+import styles from "./Drawer.module.scss";
+import { DrawerHeader } from "./ui/DrawerHeader";
+import { ContactForm } from "./ui/ContactForm";
+import { ProjectForm } from "./ui/ProjectForm";
+import { BudgetSelector } from "./ui/BudgetSelector";
+import { ConsentCheckbox } from "./ui/ConsentCheckbox";
+
+type Props = {
+	isOpen: boolean;
+	onClose: () => void;
+};
+
+export const Drawer = ({ isOpen, onClose }: Props) => {
+	const [show, setShow] = useState(isOpen);
+	const [closing, setClosing] = useState(false);
+	const [selectedBudgetTag, setSelectedBudgetTag] = useState<string | null>(null);
+	const [consent, setConsent] = useState(false);
+
+	const methods = useForm({
+		mode: "onChange",
+		reValidateMode: "onChange",
+		defaultValues: {
+			name: "",
+			phone: "",
+			email: "",
+			company: "",
+			tags: [],
+		},
+	});
+
+	const {
+		handleSubmit,
+		setValue,
+		watch,
+		formState: { isValid, errors },
+	} = methods;
+
+	const selectedTags = watch("tags") as string[];
+
+	// Регистрация поля tags для валидации
+	useEffect(() => {
+		methods.register("tags", {
+			validate: (value: string[]) => (value && value.length > 0 ? true : "Это поле обязательно"),
+		});
+	}, [methods]);
+
+	const onSubmit = (data: any) => {
+		console.log("Form submitted:", { ...data, selectedTags, selectedBudgetTag, consent });
+	};
+
+	const [tagsTouched, setTagsTouched] = useState(false);
+
+	const toggleTag = (tag: string) => {
+		const updated = selectedTags.includes(tag)
+			? selectedTags.filter((t) => t !== tag)
+			: [...selectedTags, tag];
+
+		setValue("tags", updated, { shouldValidate: true });
+		setTagsTouched(true); // отмечаем как тронутые
+	};
+
+	const toggleBudgetTag = (tag: string) =>
+		setSelectedBudgetTag((prev) => (prev === tag ? null : tag));
+
+	useEffect(() => {
+		if (isOpen) {
+			setShow(true);
+			setClosing(false);
+			document.body.style.overflow = "hidden";
+		} else {
+			setClosing(true);
+			const timer = setTimeout(() => setShow(false), 500);
+			document.body.style.overflow = "";
+			return () => clearTimeout(timer);
+		}
+	}, [isOpen]);
+
+	if (!show) return null;
+
+	return ReactDOM.createPortal(
+		<div className={`${styles.overlay} ${closing ? styles.closing : ""}`} onClick={onClose}>
+			<div
+				className={`${styles.content} ${closing ? styles.closing : ""}`}
+				onClick={(e) => e.stopPropagation()}>
+				<DrawerHeader onClose={onClose} />
+				<div className={styles.inner}>
+					<h2 className={styles.title}>Хотите обсудить проект? Заполните анкету</h2>
+					<p className={styles.description}>
+						Мы гарантируем конфиденциальность всей информации о вашем проекте.
+					</p>
+
+					<FormProvider {...methods}>
+						<form onSubmit={handleSubmit(onSubmit)}>
+							<ContactForm />
+							<ProjectForm
+								selectedTags={selectedTags}
+								toggleTag={toggleTag}
+								error={errors.tags?.message as string | undefined}
+								touched={tagsTouched}
+							/>
+							<BudgetSelector
+								selectedBudgetTag={selectedBudgetTag}
+								toggleBudgetTag={toggleBudgetTag}
+							/>
+							<ConsentCheckbox consent={consent} setConsent={setConsent} />
+							<button type='submit' className={styles.startButton} disabled={!consent || !isValid}>
+								связаться с нами
+							</button>
+						</form>
+					</FormProvider>
+				</div>
+			</div>
+		</div>,
+		document.getElementById("drawer-root")!
+	);
+};

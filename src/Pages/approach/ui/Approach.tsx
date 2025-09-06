@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Wrapper } from "../../../Shared/ui/Wrapper";
+import { Wrapper } from "../../../Shared/ui/Wrapper/Wrapper";
 
 const Approach: FC = () => {
 	return (

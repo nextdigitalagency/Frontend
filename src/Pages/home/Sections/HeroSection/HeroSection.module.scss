@@ -1,0 +1,164 @@
+.firstScreen {
+  position: fixed;
+  width: 100%;
+  min-height: 100vh;
+  top: 0;
+  background-color: var(--color-primary-hover);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 50px;
+  box-sizing: border-box;
+
+  @media (max-width: 1024px) {
+    padding-left: 10px;
+  }
+
+  @media (max-width: 768px) {
+    padding-left: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding-left: 5px;
+  }
+}
+
+.firstScreen_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 20px;
+
+  .firstScreen_title {
+    font-size: 90px;
+    color: var(--color-primary-inverse);
+    font-weight: 800;
+    line-height: 1.1;
+
+    span {
+      color: var(--color-primary);
+      display: inline-block;
+    }
+
+    @media (max-width: 1024px) {
+      font-size: 60px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 50px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 40px;
+    }
+  }
+
+  .firstScreen_description {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    flex-wrap: wrap;
+
+    @media (max-width: 1024px) {
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      margin-top: 30px;
+      gap: 50px;
+    }
+
+    @media (max-width: 480px) {
+      margin-top: 20px;
+    }
+
+    .firstScreen_tags {
+      font-size: 30px;
+      color: var(--color-primary-inverse);
+      font-weight: 900;
+      letter-spacing: 2px;
+
+      @media (max-width: 1024px) {
+        font-size: 24px;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 20px;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 16px;
+      }
+    }
+
+    .firstScreen_button {
+      button {
+        padding: 15px 30px;
+        font-size: 20px;
+        color: var(--color-primary-hover);
+        background-color: var(--color-primary-inverse);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background-color: #1d88ba;
+          border-radius: 20px;
+          color: #fff;
+          padding: 15px 40px;
+        }
+      }
+    }
+  }
+}
+
+// Медиа-запрос для кнопки на мобильных устройствах (меньше 700px)
+@media (max-width: 700px) {
+  .firstScreen_description {
+    .firstScreen_button {
+      width: 100%;
+
+      button {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+// Анимации для букв
+.letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fadeInLetter {
+  animation: fadeUp 0.3s forwards;
+}
+
+.fadeOutLetter {
+  animation: fadeDown 0.3s forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeDown {
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.wordWrapper {
+  display: inline-block;
+}

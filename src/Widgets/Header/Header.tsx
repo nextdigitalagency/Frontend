@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { Wrapper } from "../../Shared/ui/Wrapper";
+import { Wrapper } from "../../Shared/ui/Wrapper/Wrapper";
 import logo from "../../Shared/assets/img/logo.png";
 import styles from "./Header.module.scss";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { openDrawer } from "../../App/store/slices/drawerSlice";
+import { NavItem } from "../../Shared/ui/NavItem/NavItem";
 
 export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
 	const closeMenu = () => setIsOpen(false);
 	const [isScrolled, setIsScrolled] = useState(false);
-
+	const dispatch = useDispatch();
 	useEffect(() => {
 		const handleScroll = () => {
 			setIsScrolled(window.scrollY > 50);
@@ -17,6 +20,17 @@ export default function Header() {
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
+
+	useEffect(() => {
+		if (isOpen) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "";
+		}
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [isOpen]);
 
 	const text = "NEXT Digital";
 
@@ -46,21 +60,13 @@ export default function Header() {
 					)}
 				</div>
 
-				{/* Левая часть */}
-				<div className={`${styles.left} ${isOpen ? styles.hidden : ""}`}>
-					<a href='tel:+74959810185' className={styles.phone}>
-						+7 917 815-01-10
-					</a>
-					<a href='#' className={styles.becomeClient}>
-						+ Стать клиентом
-					</a>
-				</div>
-
 				{/* Навигация */}
 				<nav className={`${styles.nav} ${isOpen ? styles.hidden : ""}`}>
+					<a className={styles.becomeClient} onClick={() => dispatch(openDrawer())}>
+						Заказать проект
+					</a>
 					<Link to={"/approach"}>Услуги</Link>
 					<Link to={"/projects"}>Кейсы</Link>
-					<Link to={"/"}>Контент-хаб</Link>
 				</nav>
 
 				{/* Бургер */}
@@ -78,43 +84,26 @@ export default function Header() {
 			<div className={`${styles.mobileMenu} ${isOpen ? styles.open : ""}`}>
 				<div className={styles.fullscreen_menu}>
 					<div>
-						<p className={styles.navItem}>
-							<Link to={"/"} onClick={closeMenu}>
-								О компании
-							</Link>
-						</p>
-						<p className={styles.navItem}>
-							<Link to={"/approach"} onClick={closeMenu}>
-								Услуги
-							</Link>
-						</p>
-						<p className={styles.navItem}>
-							<Link to={"/projects"} onClick={closeMenu}>
-								Кейсы
-							</Link>
-						</p>
+						{["О компании", "Услуги", "Кейсы"].map((text, i) => (
+							<NavItem
+								key={i}
+								to={i === 0 ? "/" : i === 1 ? "/approach" : "/projects"}
+								onClick={closeMenu}
+								index={i}>
+								{text}
+							</NavItem>
+						))}
 					</div>
 					<div>
-						<p className={styles.navItem}>
-							<Link to={"/"} onClick={closeMenu}>
-								Стать клиентом
-							</Link>
-						</p>
-						<p className={styles.navItem}>
-							<Link to={"/"} onClick={closeMenu}>
-								Контент-хаб
-							</Link>
-						</p>
-						<p className={styles.navItem}>
-							<Link to={"/"} onClick={closeMenu}>
-								Работа в Next
-							</Link>
-						</p>
-						<p className={styles.navItem}>
-							<Link to={"/"} onClick={closeMenu}>
-								Контакты
-							</Link>
-						</p>
+						{["Стать клиентом", "Контент-хаб", "Работа в Next", "Контакты"].map((text, i) => (
+							<NavItem
+								key={i}
+								to='/'
+								onClick={i === 0 ? () => dispatch(openDrawer()) : closeMenu}
+								index={i + 3}>
+								{text}
+							</NavItem>
+						))}
 					</div>
 				</div>
 				<div className={styles.fullscreen_menu_footer}>

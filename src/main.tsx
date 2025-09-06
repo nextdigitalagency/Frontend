@@ -2,9 +2,16 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "../src/App/styles/index.scss";
+import { Provider } from "react-redux";
+import { store } from "./App/store/index.ts";
+import { HelmetProvider } from "@dr.pogodin/react-helmet";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<App />
+		<Provider store={store}>
+			<HelmetProvider>
+				<App />
+			</HelmetProvider>
+		</Provider>
 	</StrictMode>
 );

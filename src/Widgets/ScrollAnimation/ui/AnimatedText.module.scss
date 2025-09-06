@@ -1,0 +1,42 @@
+.container {
+  position: relative;
+  height: 200px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.animatedText {
+  font-size: clamp(1.5rem, 8vw, 6rem);
+  font-weight: 800;
+  white-space: nowrap;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+  
+  // Изначально по центру
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  // Декоративные стили
+  background: linear-gradient(45deg, #16fff3, var(--color-primary-hover));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 0.5rem 1rem;
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .container {
+    height: 150px;
+  }
+  
+  .animatedText {
+    text-align: center;
+    font-size: clamp(3.5rem, 5vw, 5rem);
+  }
+}
