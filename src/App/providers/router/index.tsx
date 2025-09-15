@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 
 import HomePage from "../../../Pages/Home/ui/HomePage.tsx";
 import Approach from "../../../Pages/Approach/ui/Approach.tsx";
-import Projects from "../../../Pages/Projects/ui/ProjectsPage.tsx";
 import PrivacyPage from "../../../Pages/Privacy/ui/PrivacyPage.tsx";
 import Header from "../../../Widgets/Header/Header.tsx";
+import Projects from "../../../Pages/Projects/ui/ProjectsPage.js";
 
 import PageTransition from "../../../Shared/ui/PageTransition/PageTransition.tsx";
 import InitialLoader from "../../../Shared/ui/InitialLoader/InitialLoader.tsx";
@@ -43,7 +43,7 @@ const AnimatedRoutes = () => {
 					path='/projects'
 					element={
 						<PageTransition>
-							<Header />
+							<Header minimal />
 							<Projects />
 						</PageTransition>
 					}

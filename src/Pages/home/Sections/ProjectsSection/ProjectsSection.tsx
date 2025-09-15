@@ -1,21 +1,25 @@
 import styles from "./ProjectsSection.module.scss";
 import cosmoport from "../../../../Shared/assets/img/companies/projects/cosmoport600.png";
-import garibaldi from "../../../../Shared/assets/img/companies/projects/garibaldi600.png";
+import emessage from "../../../../Shared/assets/img/companies/projects/eMessage600.jpg";
+import vita from "../../../../Shared/assets/img/companies/projects/vita600.png";
+import palich from "../../../../Shared/assets/img/companies/projects/Palich600.jpg";
 import sbkk from "../../../../Shared/assets/img/companies/projects/sbkk600.png";
+import fabrica from "../../../../Shared/assets/img/companies/projects/fabrica600.jpg";
 import SectionInfo from "../../../../Shared/ui/SectionInfo/SectionInfo";
 
 const projects = [
 	{
 		id: 1,
-		img: cosmoport,
+		img: emessage,
 		title: "Корпоративный сайт eMessage",
 		subtitle: "UI/UX дизайн c акцентом на комфорт, разработка на TypeScript и Next.js",
 	},
 	{
 		id: 2,
-		img: garibaldi,
-		title: "Интернет-магазин продуктов Garibaldi",
-		subtitle: "TypeScript, Next.js, интеграция с 1С и amoCRM",
+		img: vita,
+		title: "Мобильное приложение аптечной сети «Вита»",
+		subtitle:
+			"UI/UX-дизайн с упором на удобство, кроссплатформенная разработка на Flutter (Dart), интеграции с CRM и системой лояльности",
 	},
 	{
 		id: 3,
@@ -31,13 +35,14 @@ const projects = [
 	},
 	{
 		id: 5,
-		img: sbkk,
-		title: "Cosmoport",
-		subtitle: "Сервис для космических путешествий",
+		img: palich,
+		title: "Интернет-магазин «У Палыча»",
+		subtitle:
+			"Разработка на Next.js и TypeScript, интеграция с системой заказов, онлайн-оплатой и доставкой",
 	},
 	{
 		id: 6,
-		img: sbkk,
+		img: fabrica,
 		title: "Cosmoport",
 		subtitle: "Сервис для космических путешествий",
 	},

@@ -245,6 +245,8 @@
   .burger span {
     background-color: #29B6F6 !important;
   }
+
+
 }
 
 /* 2. Закрыто и скролла нет */
@@ -312,4 +314,11 @@
 
 .letter {
   animation: fadeInUp 0.5s forwards;
+}
+
+/* Бургер для минимального режима (ProjectsPage) */
+.minimal {
+  .burger span {
+    background-color: var(--color-primary); // голубой
+  }
 }

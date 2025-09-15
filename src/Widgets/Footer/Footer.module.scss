@@ -16,6 +16,10 @@
   align-items: center;
   justify-content: space-between;
   margin: auto;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .contacts  {
@@ -105,7 +109,7 @@
     }
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 768px) {
     flex-direction: column;
     gap: 10px;
   }
