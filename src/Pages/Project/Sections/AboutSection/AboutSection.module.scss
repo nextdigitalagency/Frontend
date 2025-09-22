@@ -1,0 +1,17 @@
+.wrapper {
+  padding: 80px 20px;
+}
+
+.content {
+  margin: 0 auto;
+  max-width: 900px;
+
+  h1 {
+    color: var(--color-primary);
+    font-size: 32px;
+  }
+
+  p {
+    color: var(--color-primary);
+  }
+}

@@ -1,0 +1,16 @@
+.viewport {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  cursor: grab;
+  background-color: var(--color-bg);
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.inner {
+  position: relative;
+}

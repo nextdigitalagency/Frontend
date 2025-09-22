@@ -6,10 +6,11 @@ import HomePage from "../../../Pages/Home/ui/HomePage.tsx";
 import Approach from "../../../Pages/Approach/ui/Approach.tsx";
 import PrivacyPage from "../../../Pages/Privacy/ui/PrivacyPage.tsx";
 import Header from "../../../Widgets/Header/Header.tsx";
-import Projects from "../../../Pages/Projects/ui/ProjectsPage.js";
+import Projects from "../../../Pages/Projects/ProjectsPage.js";
 
 import PageTransition from "../../../Shared/ui/PageTransition/PageTransition.tsx";
 import InitialLoader from "../../../Shared/ui/InitialLoader/InitialLoader.tsx";
+import ProjectPage from "../../../Pages/Project/ui/ProjectPage.tsx";
 
 // Определяем dev режим
 const isDev = import.meta.env.MODE === "development";
@@ -45,6 +46,15 @@ const AnimatedRoutes = () => {
 						<PageTransition>
 							<Header minimal />
 							<Projects />
+						</PageTransition>
+					}
+				/>
+				<Route
+					path='/projects/:slug'
+					element={
+						<PageTransition>
+							<Header />
+							<ProjectPage />
 						</PageTransition>
 					}
 				/>

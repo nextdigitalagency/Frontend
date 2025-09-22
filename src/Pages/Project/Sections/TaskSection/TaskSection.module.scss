@@ -1,0 +1,44 @@
+.wrapper {
+  padding: 80px 20px;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: 280px;
+
+  @media (max-width: 1024px) {
+    gap: 80px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+
+.content h2 {
+  flex-shrink: 0;
+  font-size: 32px;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+}
+
+.text {
+  max-width: 900px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+
+  p + p {
+    margin-top: 20px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    max-width: 100%;
+  }
+}

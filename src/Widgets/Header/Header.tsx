@@ -8,7 +8,7 @@ import { openDrawer } from "../../App/store/slices/drawerSlice";
 import { NavItem } from "../../Shared/ui/NavItem/NavItem";
 
 interface HeaderProps {
-	minimal?: boolean; // если true — показываем только лого и бургер
+	minimal?: boolean;
 }
 
 export default function Header({ minimal }: HeaderProps) {
@@ -75,7 +75,7 @@ export default function Header({ minimal }: HeaderProps) {
 				{/* Бургер */}
 				<button
 					className={`${styles.burger} ${isOpen ? styles.active : ""} ${
-						minimal ? styles.burgerBlue : ""
+						!minimal ? styles.burgerBlue : ""
 					}`}
 					onClick={() => setIsOpen(!isOpen)}
 					aria-label='Toggle menu'>
@@ -85,48 +85,47 @@ export default function Header({ minimal }: HeaderProps) {
 				</button>
 			</header>
 
-			{/* Мобильное меню — показываем только если minimal не активен */}
-			{minimal && (
-				<div className={`${styles.mobileMenu} ${isOpen ? styles.open : ""}`}>
-					<div className={styles.fullscreen_menu}>
-						<div>
-							{["О компании", "Услуги", "Кейсы"].map((text, i) => (
-								<NavItem
-									key={i}
-									to={i === 0 ? "/" : i === 1 ? "/approach" : "/projects"}
-									onClick={closeMenu}
-									index={i}>
-									{text}
-								</NavItem>
-							))}
-						</div>
-						<div>
-							{["Стать клиентом", "Контент-хаб", "Работа в Next", "Контакты"].map((text, i) => (
-								<NavItem
-									key={i}
-									to='/'
-									onClick={i === 0 ? () => dispatch(openDrawer()) : closeMenu}
-									index={i + 3}>
-									{text}
-								</NavItem>
-							))}
-						</div>
+			{/* Мобильное меню — всегда доступно */}
+			<div className={`${styles.mobileMenu} ${isOpen ? styles.open : ""}`}>
+				<div className={styles.fullscreen_menu}>
+					<div>
+						{["О компании", "Услуги", "Кейсы"].map((text, i) => (
+							<NavItem
+								key={i}
+								to={i === 0 ? "/" : i === 1 ? "/approach" : "/projects"}
+								onClick={closeMenu}
+								index={i}>
+								{text}
+							</NavItem>
+						))}
 					</div>
-					<div className={styles.fullscreen_menu_footer}>
-						<div className={styles.fullscreen_menu_copyright}>
-							<p>© {new Date().getFullYear()} Next. Все права защищены.</p>
-							<p className={styles.policy}>Политика конфидециальности</p>
-						</div>
-						<div className={styles.fullscreen_menu_contacts}>
-							<p>+7 917 815-01-10 </p> | <p> info@gmail.com</p>
-						</div>
-						<div className={styles.fullscreen_menu_social}>
-							<p>Telegram</p>
-							<p>Instagram</p>
-						</div>
+					<div>
+						{["Стать клиентом", "Контент-хаб", "Работа в Next", "Контакты"].map((text, i) => (
+							<NavItem
+								key={i}
+								to='/'
+								onClick={i === 0 ? () => dispatch(openDrawer()) : closeMenu}
+								index={i + 3}>
+								{text}
+							</NavItem>
+						))}
 					</div>
 				</div>
-			)}
+
+				<div className={styles.fullscreen_menu_footer}>
+					<div className={styles.fullscreen_menu_copyright}>
+						<p>© {new Date().getFullYear()} Next. Все права защищены.</p>
+						<p className={styles.policy}>Политика конфидециальности</p>
+					</div>
+					<div className={styles.fullscreen_menu_contacts}>
+						<p>+7 917 815-01-10 </p> | <p> info@gmail.com</p>
+					</div>
+					<div className={styles.fullscreen_menu_social}>
+						<p>Telegram</p>
+						<p>Instagram</p>
+					</div>
+				</div>
+			</div>
 		</Wrapper>
 	);
 }
