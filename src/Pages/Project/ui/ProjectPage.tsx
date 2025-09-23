@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import styles from "./ProjectPage.module.scss";
 
 import AboutSection from "../Sections/AboutSection/AboutSection";
@@ -10,8 +9,6 @@ import FrontendSection from "../Sections/FrontendSection/FrontendSection";
 import BackendSection from "../Sections/BackendSection/BackendSection";
 
 const ProjectPage = () => {
-	const { slug } = useParams<{ slug: string }>();
-
 	return (
 		<div className={styles.projectPage}>
 			<HeroSection />

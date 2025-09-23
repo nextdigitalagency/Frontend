@@ -1,4 +1,7 @@
 .footer {
+  position: relative;
+  height: 400px;
+  clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);
   background-color: var(--color-bg);
   color: #94a3b8;
   padding: 3rem 1rem 2rem;
@@ -6,6 +9,17 @@
   position: relative;
   border-top: 1px solid #e2e8f0;
   border-bottom: 1px solid #e2e8f0;
+}
+
+.footerContainer {
+  position: relative;
+  height: calc(100vh + 350px);
+  top: -100vh;
+}
+
+.main {
+  position: sticky;
+  top: calc(100vh - 350px);
 }
 
 .container {

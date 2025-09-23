@@ -1,13 +1,13 @@
 import type { FC } from "react";
 import { Wrapper } from "../../../Shared/ui/Wrapper/Wrapper";
 import { Helmet } from "@dr.pogodin/react-helmet";
-import { AnimatedText } from "../../../Widgets/ScrollAnimation/ui/AnimatedText";
 import { motion, useScroll } from "framer-motion";
 import Footer from "../../../Widgets/Footer/Footer";
 import HeroSection from "../Sections/HeroSection/HeroSection";
 import ProjectsSection from "../Sections/ProjectsSection/ProjectsSection";
 import About from "../Sections/AboutSection/About";
 import DirectionSection from "../Sections/DirectionSection/DirectionSection";
+import AnimatedText from "../../../Widgets/ScrollAnimation/AnimatedText.tsx";
 
 const HomePage: FC = () => {
 	const { scrollYProgress } = useScroll();
@@ -48,9 +48,7 @@ const HomePage: FC = () => {
 			<About />
 			<ProjectsSection />
 
-			<AnimatedText>
-				Design + Development + Branding + Architecture + Analytics + Digital + B2B + B2C
-			</AnimatedText>
+			<AnimatedText />
 
 			<DirectionSection />
 

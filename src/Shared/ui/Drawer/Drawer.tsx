@@ -68,7 +68,6 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 			? selectedTags.filter((t) => t !== tag)
 			: [...selectedTags, tag];
 
-		// теперь TS знает, что tags — это string[]
 		setValue("tags", updated, { shouldValidate: true });
 		setTagsTouched(true);
 	};
@@ -80,11 +79,9 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 		if (isOpen) {
 			setShow(true);
 			setClosing(false);
-			document.body.style.overflow = "hidden";
 		} else {
 			setClosing(true);
 			const timer = setTimeout(() => setShow(false), 500);
-			document.body.style.overflow = "";
 			return () => clearTimeout(timer);
 		}
 	}, [isOpen]);
@@ -95,6 +92,7 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 		<div className={`${styles.overlay} ${closing ? styles.closing : ""}`} onClick={onClose}>
 			<div
 				className={`${styles.content} ${closing ? styles.closing : ""}`}
+				data-lenis-scroll
 				onClick={(e) => e.stopPropagation()}>
 				<DrawerHeader onClose={onClose} />
 				<div className={styles.inner}>

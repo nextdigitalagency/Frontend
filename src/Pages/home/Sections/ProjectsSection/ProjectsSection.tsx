@@ -1,10 +1,5 @@
 import styles from "./ProjectsSection.module.scss";
-import cosmoport from "../../../../Shared/assets/img/companies/projects/cosmoport600.png";
 import emessage from "../../../../Shared/assets/img/companies/projects/eMessage600.jpg";
-import vita from "../../../../Shared/assets/img/companies/projects/vita600.png";
-import palich from "../../../../Shared/assets/img/companies/projects/Palich600.jpg";
-import sbkk from "../../../../Shared/assets/img/companies/projects/sbkk600.png";
-import fabrica from "../../../../Shared/assets/img/companies/projects/fabrica600.jpg";
 import SectionInfo from "../../../../Shared/ui/SectionInfo/SectionInfo";
 
 const projects = [
@@ -13,38 +8,7 @@ const projects = [
 		img: emessage,
 		title: "Корпоративный сайт eMessage",
 		subtitle: "UI/UX дизайн c акцентом на комфорт, разработка на TypeScript и Next.js",
-	},
-	{
-		id: 2,
-		img: vita,
-		title: "Мобильное приложение аптечной сети «Вита»",
-		subtitle:
-			"UI/UX-дизайн с упором на удобство, кроссплатформенная разработка на Flutter (Dart), интеграции с CRM и системой лояльности",
-	},
-	{
-		id: 3,
-		img: sbkk,
-		title: "Разработка производственного сайта Самарского БКК",
-		subtitle: "UX-проектирование, дизайн и разработка на React и Next.js",
-	},
-	{
-		id: 4,
-		img: cosmoport,
-		title: "Лендинг ТРК Космопорт",
-		subtitle: "UI/UX дизайн c акцентом на комфорт, разработка на TypeScript и Next.js",
-	},
-	{
-		id: 5,
-		img: palich,
-		title: "Интернет-магазин «У Палыча»",
-		subtitle:
-			"Разработка на Next.js и TypeScript, интеграция с системой заказов, онлайн-оплатой и доставкой",
-	},
-	{
-		id: 6,
-		img: fabrica,
-		title: "Cosmoport",
-		subtitle: "Сервис для космических путешествий",
+		link: "#", // ссылка на проект
 	},
 ];
 
@@ -61,14 +25,20 @@ export default function ProjectsSection() {
 
 			<div className={styles.cards}>
 				{projects.map((item) => (
-					<div key={item.id}>
-						<div className={styles.card}>
-							<div className={styles.cardImage}>
-								<img src={item.img} alt={item.title} />
-							</div>
+					<div key={item.id} className={styles.card}>
+						{/* Слева картинка */}
+						<div className={styles.cardImage}>
+							<img src={item.img} alt={item.title} />
 						</div>
-						<h2 className={styles.cardTitle}>{item.title}</h2>
-						<p className={styles.cardSubtitle}>{item.subtitle}</p>
+
+						{/* Справа текст */}
+						<div className={styles.cardContent}>
+							<h2 className={styles.cardTitle}>{item.title}</h2>
+							<p className={styles.cardSubtitle}>{item.subtitle}</p>
+							<a href={item.link} className={styles.cardButton}>
+								Перейти к проекту
+							</a>
+						</div>
 					</div>
 				))}
 			</div>
