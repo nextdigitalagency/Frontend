@@ -2,8 +2,6 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
-import HomePage from "../../../Pages/Home/ui/HomePage.tsx";
-import Approach from "../../../Pages/Approach/ui/Approach.tsx";
 import PrivacyPage from "../../../Pages/Privacy/ui/PrivacyPage.tsx";
 import Header from "../../../Widgets/Header/Header.tsx";
 import Projects from "../../../Pages/Projects/ProjectsPage.js";
@@ -11,11 +9,11 @@ import Projects from "../../../Pages/Projects/ProjectsPage.js";
 import PageTransition from "../../../Shared/ui/PageTransition/PageTransition.tsx";
 import InitialLoader from "../../../Shared/ui/InitialLoader/InitialLoader.tsx";
 import ProjectPage from "../../../Pages/Project/ui/ProjectPage.tsx";
+import HomePage from "../../../Pages/Home/ui/HomePage.tsx";
+import Approach from "../../../Pages/Approach/ui/Approach.tsx";
 
-// Определяем dev режим
 const isDev = import.meta.env.MODE === "development";
 
-// Анимированные роуты
 const AnimatedRoutes = () => {
 	const location = useLocation();
 
@@ -71,9 +69,8 @@ const AnimatedRoutes = () => {
 	);
 };
 
-// Роутер с первым экраном загрузки (только не в dev)
 export const AppRouter = () => {
-	const [isLoading, setIsLoading] = useState(!isDev); // в dev — сразу false
+	const [isLoading, setIsLoading] = useState(!isDev);
 
 	useEffect(() => {
 		if (!isDev) {
