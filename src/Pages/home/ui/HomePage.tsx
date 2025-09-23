@@ -7,7 +7,7 @@ import HeroSection from "../Sections/HeroSection/HeroSection";
 import ProjectsSection from "../Sections/ProjectsSection/ProjectsSection";
 import About from "../Sections/AboutSection/About";
 import DirectionSection from "../Sections/DirectionSection/DirectionSection";
-import AnimatedText from "../../../Widgets/ScrollAnimation/AnimatedText.tsx";
+import AnimatedText from "../../../Widgets/ScrollAnimation/AnimatedText";
 
 const HomePage: FC = () => {
 	const { scrollYProgress } = useScroll();
