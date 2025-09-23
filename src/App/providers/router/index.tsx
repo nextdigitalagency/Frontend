@@ -2,15 +2,11 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
-import PrivacyPage from "../../../Pages/Privacy/ui/PrivacyPage";
-import Header from "../../../Widgets/Header/Header";
-import Projects from "../../../Pages/Projects/ProjectsPage";
-
 import PageTransition from "../../../Shared/ui/PageTransition/PageTransition";
 import InitialLoader from "../../../Shared/ui/InitialLoader/InitialLoader";
-import ProjectPage from "../../../Pages/Project/ui/ProjectPage";
-import HomePage from "../../../Pages/Home/ui/HomePage";
-import Approach from "../../../Pages/Approach/ui/Approach";
+import Header from "../../../Widgets/Header/Header";
+
+import { Approach, HomePage, PrivacyPage, ProjectsPage, ProjectPage } from "../../../Pages";
 
 const isDev = import.meta.env.MODE === "development";
 
@@ -43,7 +39,7 @@ const AnimatedRoutes = () => {
 					element={
 						<PageTransition>
 							<Header minimal />
-							<Projects />
+							<ProjectsPage />
 						</PageTransition>
 					}
 				/>
