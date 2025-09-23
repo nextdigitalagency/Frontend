@@ -2,15 +2,15 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
-import PrivacyPage from "../../../Pages/Privacy/ui/PrivacyPage.tsx";
-import Header from "../../../Widgets/Header/Header.tsx";
-import Projects from "../../../Pages/Projects/ProjectsPage.js";
+import PrivacyPage from "../../../Pages/Privacy/ui/PrivacyPage";
+import Header from "../../../Widgets/Header/Header";
+import Projects from "../../../Pages/Projects/ProjectsPage";
 
-import PageTransition from "../../../Shared/ui/PageTransition/PageTransition.tsx";
-import InitialLoader from "../../../Shared/ui/InitialLoader/InitialLoader.tsx";
-import ProjectPage from "../../../Pages/Project/ui/ProjectPage.tsx";
-import HomePage from "../../../Pages/Home/ui/HomePage.tsx";
-import Approach from "../../../Pages/Approach/ui/Approach.tsx";
+import PageTransition from "../../../Shared/ui/PageTransition/PageTransition";
+import InitialLoader from "../../../Shared/ui/InitialLoader/InitialLoader";
+import ProjectPage from "../../../Pages/Project/ui/ProjectPage";
+import HomePage from "../../../Pages/Home/ui/HomePage";
+import Approach from "../../../Pages/Approach/ui/Approach";
 
 const isDev = import.meta.env.MODE === "development";
 
