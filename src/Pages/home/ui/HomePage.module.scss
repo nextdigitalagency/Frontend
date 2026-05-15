@@ -332,10 +332,18 @@
   margin-bottom: 50px;
 }
 
+.sectionIntro > *,
+.reasonLayout > *,
+.contactSection > * {
+  min-width: 0;
+}
+
 .sectionIntro h2,
 .reasonLayout h2,
 .contactSection h2 {
   font-size: clamp(44px, 7vw, 116px);
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .sectionIntro p,
@@ -343,6 +351,8 @@
   color: var(--color-secondary);
   font-size: 20px;
   line-height: 1.42;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .serviceRows {
@@ -704,7 +714,29 @@
   .sectionIntro h2,
   .reasonLayout h2,
   .contactSection h2 {
-    font-size: clamp(42px, 14vw, 64px);
+    font-size: clamp(34px, 10.2vw, 42px);
+    line-height: 1.04;
+  }
+
+  .servicesSection,
+  .workflowSection,
+  .reasonsSection,
+  .faqSection,
+  .contactSection {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .sectionIntro {
+    gap: 28px;
+    margin-top: 28px;
+    margin-bottom: 38px;
+  }
+
+  .sectionIntro p,
+  .contactSection p {
+    font-size: 17px;
+    line-height: 1.45;
   }
 
   .hero h1 {

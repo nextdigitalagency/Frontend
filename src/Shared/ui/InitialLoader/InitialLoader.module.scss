@@ -6,20 +6,28 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  overflow: hidden;
 }
 
 .loaderContent {
-  font-size: 78px;
-  letter-spacing: 50px;
+  width: 100%;
+  max-width: 100vw;
+  padding: 0 20px;
+  font-size: clamp(34px, 12vw, 78px);
+  letter-spacing: clamp(0.18em, 4vw, 0.64em);
   color: #fff;
   overflow: hidden;
-  height: 60px; // чтобы не прыгало при смене слов
+  height: clamp(44px, 14vw, 86px); // чтобы не прыгало при смене слов
   display: flex;
   align-items: center;
-    color: #f5f5f5;
-
+  justify-content: center;
+  color: #f5f5f5;
+  text-align: center;
 }
 
 .word {
   display: block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
 }
