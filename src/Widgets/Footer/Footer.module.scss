@@ -1,27 +1,27 @@
 .footer {
   --footer-height: 400px;
 
-  position: relative;
+  position: sticky;
+  bottom: 0;
+  z-index: 0;
   height: var(--footer-height);
-  clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);
+  display: flex;
+  align-items: center;
   background-color: var(--color-bg);
   color: #94a3b8;
   padding: 3rem 1rem 2rem;
   font-family: system-ui, sans-serif;
-  position: relative;
+  overflow: hidden;
   border-top: 1px solid #e2e8f0;
   border-bottom: 1px solid #e2e8f0;
 }
 
 .footerContainer {
-  position: relative;
-  height: calc(100vh + var(--footer-height));
-  top: -100vh;
+  width: 100%;
 }
 
 .main {
-  position: sticky;
-  top: calc(100vh - var(--footer-height));
+  width: 100%;
 }
 
 .container {
@@ -137,7 +137,6 @@
 @media (max-width: 768px) {
   .footer {
     --footer-height: 610px;
-    min-height: var(--footer-height);
     padding: 64px 18px 28px;
   }
 
