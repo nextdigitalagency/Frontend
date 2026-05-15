@@ -63,7 +63,14 @@ body {
   line-height: 1.5;
   color: var(--color-text);
   background-color: var(--color-bg);
+  user-select: none;
 
+}
+
+input,
+textarea,
+select {
+  user-select: text;
 }
 
 /* ===========================

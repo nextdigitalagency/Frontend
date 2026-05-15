@@ -62,6 +62,31 @@
   }
 }
 
+.languageToggle {
+  min-width: 42px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.mobileLanguageToggle {
+  width: 58px;
+  height: 36px;
+  align-self: flex-start;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
 /* Общие стили для ссылок */
 .left a,
 .nav a {

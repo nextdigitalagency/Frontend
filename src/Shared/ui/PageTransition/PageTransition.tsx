@@ -19,7 +19,7 @@ const PageTransition = ({ children }: PageTransitionProps) => {
 				exit={{ scaleY: 1 }}
 				transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
 				className={styles.fadeIn}>
-				NEXT
+				AERIX
 			</motion.div>
 
 			{/* Нижняя панель (открытие страницы) */}
@@ -32,7 +32,7 @@ const PageTransition = ({ children }: PageTransitionProps) => {
 				onAnimationComplete={() => {
 					isFirstRender.current = false;
 				}}>
-				NEXT
+				AERIX
 			</motion.div>
 
 			{children}

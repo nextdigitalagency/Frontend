@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TagsButtons } from "./TagsButtons";
 import styles from "../Drawer.module.scss";
+import { useLanguage } from "../../../lib/i18n";
 
 type Props = {
 	selectedTags: string[];
@@ -10,26 +11,21 @@ type Props = {
 };
 
 export const ProjectForm = ({ selectedTags, toggleTag, error, touched }: Props) => {
+	const { isEnglish } = useLanguage();
 	const [text, setText] = useState("");
 	const [textError, setTextError] = useState<string | null>(null);
 	const [touchedTextarea, setTouchedTextarea] = useState(false);
 
-	const projectTags = [
-		"корпоративный",
-		"интернет-магазин",
-		"лендинг",
-		"дизайн",
-		"ux-аудит",
-		"seo",
-		"crm",
-	];
+	const projectTags = isEnglish
+		? ["corporate", "online store", "landing page", "design", "ux audit", "seo", "crm"]
+		: ["корпоративный", "интернет-магазин", "лендинг", "дизайн", "ux-аудит", "seo", "crm"];
 
 	const validateTextarea = (value: string) => {
 		if (!value.trim()) {
-			return "Это обязательное поле";
+			return isEnglish ? "This field is required" : "Это обязательное поле";
 		}
 		if (value.trim().length < 50) {
-			return "Минимум 50 символов";
+			return isEnglish ? "At least 50 characters" : "Минимум 50 символов";
 		}
 		return null;
 	};
@@ -48,7 +44,7 @@ export const ProjectForm = ({ selectedTags, toggleTag, error, touched }: Props) 
 
 	return (
 		<div className={styles.projectWrapper}>
-			<h3 className={styles.subtitle}>О проекте</h3>
+			<h3 className={styles.subtitle}>{isEnglish ? "About the project" : "О проекте"}</h3>
 
 			<div className={styles.tags}>
 				<TagsButtons
@@ -62,24 +58,28 @@ export const ProjectForm = ({ selectedTags, toggleTag, error, touched }: Props) 
 
 			<div className={styles.textareaWrapper}>
 				<textarea
-					placeholder='Расскажите о вашем проекте*'
+					placeholder={isEnglish ? "Tell us about your project*" : "Расскажите о вашем проекте*"}
 					value={text}
 					onChange={handleChange}
 					onBlur={handleBlur}
 					className={textError ? styles.textareaError : ""}
 				/>
 				<button type='button' className={styles.fileButton}>
-					📎 прикрепить файл
+					{isEnglish ? "Attach a file" : "📎 прикрепить файл"}
 				</button>
 				{textError && <p className={styles.errorText}>{textError}</p>}
 			</div>
 
 			<div className={styles.guidingQuestions}>
 				<ol>
-					<li>Чем занимается ваша компания?</li>
-					<li>С чем мы можем помочь?</li>
-					<li>На какой срок работы и бюджет рассчитываете?</li>
-					<li>Telegram / Whatsapp, если удобнее общаться в мессенджере</li>
+					<li>{isEnglish ? "What does your company do?" : "Чем занимается ваша компания?"}</li>
+					<li>{isEnglish ? "How can we help?" : "С чем мы можем помочь?"}</li>
+					<li>{isEnglish ? "What timeline and budget do you expect?" : "На какой срок работы и бюджет рассчитываете?"}</li>
+					<li>
+						{isEnglish
+							? "Telegram / WhatsApp, if messaging is more convenient"
+							: "Telegram / Whatsapp, если удобнее общаться в мессенджере"}
+					</li>
 				</ol>
 			</div>
 		</div>

@@ -6,7 +6,7 @@ type Props = {
 
 export const DrawerHeader = ({ onClose }: Props) => (
 	<div className={styles.drawerHeader}>
-		<div className={styles.logoText}>NEXT Digital</div>
+		<div className={styles.logoText}>Aerix</div>
 		<button className={styles.close} onClick={onClose}>
 			×
 		</button>

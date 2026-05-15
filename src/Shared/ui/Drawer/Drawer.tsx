@@ -7,6 +7,7 @@ import { ContactForm } from "./ui/ContactForm";
 import { ProjectForm } from "./ui/ProjectForm";
 import { BudgetSelector } from "./ui/BudgetSelector";
 import { ConsentCheckbox } from "./ui/ConsentCheckbox";
+import { useLanguage } from "../../lib/i18n";
 
 type Props = {
 	isOpen: boolean;
@@ -27,6 +28,7 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 	const [closing, setClosing] = useState(false);
 	const [selectedBudgetTag, setSelectedBudgetTag] = useState<string | null>(null);
 	const [consent, setConsent] = useState(false);
+	const { isEnglish } = useLanguage();
 
 	// прокидываем тип
 	const methods = useForm<FormValues>({
@@ -53,9 +55,9 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 	// регистрация поля tags для валидации
 	useEffect(() => {
 		methods.register("tags", {
-			validate: (value) => (value && value.length > 0 ? true : "Это поле обязательно"),
+			validate: (value) => (value && value.length > 0 ? true : isEnglish ? "This field is required" : "Это поле обязательно"),
 		});
-	}, [methods]);
+	}, [methods, isEnglish]);
 
 	const onSubmit = (data: FormValues) => {
 		console.log("Form submitted:", { ...data, selectedTags, selectedBudgetTag, consent });
@@ -96,9 +98,13 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 				onClick={(e) => e.stopPropagation()}>
 				<DrawerHeader onClose={onClose} />
 				<div className={styles.inner}>
-					<h2 className={styles.title}>Хотите обсудить проект? Заполните анкету</h2>
+					<h2 className={styles.title}>
+						{isEnglish ? "Want to discuss a project? Fill out the brief" : "Хотите обсудить проект? Заполните анкету"}
+					</h2>
 					<p className={styles.description}>
-						Мы гарантируем конфиденциальность всей информации о вашем проекте.
+						{isEnglish
+							? "We keep all information about your project confidential."
+							: "Мы гарантируем конфиденциальность всей информации о вашем проекте."}
 					</p>
 
 					<FormProvider {...methods}>
@@ -116,7 +122,7 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 							/>
 							<ConsentCheckbox consent={consent} setConsent={setConsent} />
 							<button type='submit' className={styles.startButton} disabled={!consent || !isValid}>
-								связаться с нами
+								{isEnglish ? "contact us" : "связаться с нами"}
 							</button>
 						</form>
 					</FormProvider>

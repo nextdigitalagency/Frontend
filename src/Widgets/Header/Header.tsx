@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openDrawer } from "../../App/store/slices/drawerSlice";
 import { NavItem } from "../../Shared/ui/NavItem/NavItem";
+import { useLanguage } from "../../Shared/lib/i18n";
 
 interface HeaderProps {
 	minimal?: boolean;
@@ -16,6 +17,11 @@ export default function Header({ minimal }: HeaderProps) {
 	const closeMenu = () => setIsOpen(false);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const dispatch = useDispatch();
+	const { language, toggleLanguage, isEnglish } = useLanguage();
+	const handleOpenDrawer = () => {
+		dispatch(openDrawer());
+		closeMenu();
+	};
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -33,7 +39,7 @@ export default function Header({ minimal }: HeaderProps) {
 		};
 	}, [isOpen]);
 
-	const text = "NEXT Digital";
+	const text = "Aerix";
 
 	return (
 		<Wrapper>
@@ -64,11 +70,10 @@ export default function Header({ minimal }: HeaderProps) {
 				{/* Навигация — показываем только если minimal не активен */}
 				{!minimal && (
 					<nav className={`${styles.nav} ${isOpen ? styles.hidden : ""}`}>
-						<a className={styles.becomeClient} onClick={() => dispatch(openDrawer())}>
-							Заказать проект
+						<a className={styles.becomeClient} onClick={handleOpenDrawer}>
+							{isEnglish ? "Start a project" : "Заказать проект"}
 						</a>
-						<Link to={"/approach"}>Услуги</Link>
-						<Link to={"/projects"}>Кейсы</Link>
+						<Link to={"/approach"}>{isEnglish ? "Services" : "Услуги"}</Link>
 					</nav>
 				)}
 
@@ -88,11 +93,14 @@ export default function Header({ minimal }: HeaderProps) {
 			{/* Мобильное меню — всегда доступно */}
 			<div className={`${styles.mobileMenu} ${isOpen ? styles.open : ""}`}>
 				<div className={styles.fullscreen_menu}>
+					<button className={styles.mobileLanguageToggle} onClick={toggleLanguage} type='button'>
+						{language.toUpperCase()}
+					</button>
 					<div>
-						{["О компании", "Услуги", "Кейсы"].map((text, i) => (
+						{(isEnglish ? ["About", "Services"] : ["О компании", "Услуги"]).map((text, i) => (
 							<NavItem
 								key={i}
-								to={i === 0 ? "/" : i === 1 ? "/approach" : "/projects"}
+								to={i === 0 ? "/" : "/approach"}
 								onClick={closeMenu}
 								index={i}>
 								{text}
@@ -100,11 +108,14 @@ export default function Header({ minimal }: HeaderProps) {
 						))}
 					</div>
 					<div>
-						{["Стать клиентом", "Контент-хаб", "Работа в Next", "Контакты"].map((text, i) => (
+						{(isEnglish
+							? ["Become a client", "Content hub", "Careers at Aerix", "Contacts"]
+							: ["Стать клиентом", "Контент-хаб", "Работа в Aerix", "Контакты"]
+						).map((text, i) => (
 							<NavItem
 								key={i}
 								to='/'
-								onClick={i === 0 ? () => dispatch(openDrawer()) : closeMenu}
+								onClick={i === 0 ? handleOpenDrawer : closeMenu}
 								index={i + 3}>
 								{text}
 							</NavItem>
@@ -114,8 +125,11 @@ export default function Header({ minimal }: HeaderProps) {
 
 				<div className={styles.fullscreen_menu_footer}>
 					<div className={styles.fullscreen_menu_copyright}>
-						<p>© {new Date().getFullYear()} Next. Все права защищены.</p>
-						<p className={styles.policy}>Политика конфидециальности</p>
+						<p>
+							© {new Date().getFullYear()} Aerix.{" "}
+							{isEnglish ? "All rights reserved." : "Все права защищены."}
+						</p>
+						<p className={styles.policy}>{isEnglish ? "Privacy policy" : "Политика конфидециальности"}</p>
 					</div>
 					<div className={styles.fullscreen_menu_contacts}>
 						<p>+7 917 815-01-10 </p> | <p> info@gmail.com</p>

@@ -3,9 +3,11 @@ import { openDrawer } from "../../App/store/slices/drawerSlice";
 import Button from "../../Shared/ui/Button/Button";
 import styles from "./Footer.module.scss";
 import { motion } from "framer-motion";
+import { useLanguage } from "../../Shared/lib/i18n";
 
 export default function Footer() {
 	const dispatch = useDispatch();
+	const { isEnglish } = useLanguage();
 
 	const textAnimation = {
 		hidden: { opacity: 0, y: 20 },
@@ -31,13 +33,15 @@ export default function Footer() {
 							whileInView='visible'
 							viewport={{ once: true, amount: 0.3 }}
 							variants={textAnimation}>
-							<h3 className={styles.logo}>Next Digital</h3>
-							<p className={styles.desc}>Создаем. Дизайним. Разрабатываем.</p>
+							<h3 className={styles.logo}>Aerix</h3>
+							<p className={styles.desc}>
+								{isEnglish ? "We create. Design. Develop." : "Создаем. Дизайним. Разрабатываем."}
+							</p>
 						</motion.div>
 
 						<div className={styles.cta}>
 							<Button className={styles.button} onClick={() => dispatch(openDrawer())}>
-								Начать проект
+								{isEnglish ? "Start a project" : "Начать проект"}
 							</Button>
 						</div>
 					</div>
@@ -51,8 +55,11 @@ export default function Footer() {
 							visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
 						}}>
 						<motion.div variants={textAnimation} className={styles.fullscreen_menu_copyright}>
-							<p>© {new Date().getFullYear()} Next. Все права защищены.</p>
-							<p className={styles.policy}>Политика конфидециальности</p>
+							<p>
+								© {new Date().getFullYear()} Aerix.{" "}
+								{isEnglish ? "All rights reserved." : "Все права защищены."}
+							</p>
+							<p className={styles.policy}>{isEnglish ? "Privacy policy" : "Политика конфидециальности"}</p>
 						</motion.div>
 						<motion.div variants={textAnimation} className={styles.fullscreen_menu_contacts}>
 							<p>+7 917 815-01-10 </p> | <p> info@gmail.com</p>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "./InitialLoader.module.scss";
 import { Helmet } from "@dr.pogodin/react-helmet";
 
-const words = ["NEXT", "DIGITAL", "AGENCY"];
+const words = ["AERIX", "DIGITAL", "AGENCY"];
 
 export default function InitialLoader({ onFinish }: { onFinish: () => void }) {
 	const [index, setIndex] = useState(0);
@@ -31,10 +31,10 @@ export default function InitialLoader({ onFinish }: { onFinish: () => void }) {
 	return (
 		<AnimatePresence>
 			<Helmet>
-				<title>Next: Загрузка данных</title>
-				<meta name='description' content='Next: Загрузка данных' />
-				<meta property='og:title' content='Next: digital-агентство' />
-				<meta property='og:description' content='Next: Загрузка данных' />
+				<title>Aerix: Загрузка данных</title>
+				<meta name='description' content='Aerix: Загрузка данных' />
+				<meta property='og:title' content='Aerix: digital-агентство' />
+				<meta property='og:description' content='Aerix: Загрузка данных' />
 				<meta property='og:type' content='website' />
 			</Helmet>
 			{!finished && (

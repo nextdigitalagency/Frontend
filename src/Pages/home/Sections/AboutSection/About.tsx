@@ -19,7 +19,7 @@ export default function About() {
 	const cards = [
 		{
 			number: "01",
-			title: "Next digital",
+			title: "Aerix digital",
 			text: "Развиваем бизнес в диджитал среде. Создаём современные проекты: от маленьких идей до больших продаж. Просто, удобно и с результатом.",
 		},
 		{

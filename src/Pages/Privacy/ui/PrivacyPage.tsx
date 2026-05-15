@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./PrivacyPage.module.scss";
 import { Helmet } from "@dr.pogodin/react-helmet";
+import { SITE_URL } from "../../../Shared/lib/seo";
 
 const PrivacyPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -11,15 +12,17 @@ const PrivacyPage: React.FC = () => {
 	return (
 		<div className={styles.privacyPage}>
 			<Helmet>
-				<title>Next: Политика конфиденциальности</title>
+				<title>Aerix: Политика конфиденциальности</title>
+				<meta name='robots' content='noindex, follow' />
+				<link rel='canonical' href={`${SITE_URL}/privacy`} />
 				<meta
 					name='description'
-					content='Next: креативное digital-агентство. Политика конфиденциальности.'
+					content='Aerix: креативное digital-агентство. Политика конфиденциальности.'
 				/>
-				<meta property='og:title' content='Next: Политика конфиденциальности' />
+				<meta property='og:title' content='Aerix: Политика конфиденциальности' />
 				<meta
 					property='og:description'
-					content='Next: креативное digital-агентство. Политика конфиденциальности.'
+					content='Aerix: креативное digital-агентство. Политика конфиденциальности.'
 				/>
 				<meta property='og:type' content='website' />
 			</Helmet>

@@ -2,8 +2,10 @@
 import { useFormContext } from "react-hook-form"; // FieldError не нужно импортировать
 import Input from "../../Input/Input";
 import styles from "../Drawer.module.scss";
+import { useLanguage } from "../../../lib/i18n";
 
 export const ContactForm = () => {
+	const { isEnglish } = useLanguage();
 	const {
 		register,
 		formState: { errors },
@@ -14,17 +16,17 @@ export const ContactForm = () => {
 
 	return (
 		<div className={styles.formWrapper}>
-			<h3 className={styles.subtitle}>Ваши контакты</h3>
+			<h3 className={styles.subtitle}>{isEnglish ? "Your contacts" : "Ваши контакты"}</h3>
 			<div className={styles.inputs}>
 				<div className={styles.inputWrapper}>
 					<Input
 						type='text'
-						placeholder='Имя*'
+						placeholder={isEnglish ? "Name*" : "Имя*"}
 						{...register("name", {
-							required: "Это поле обязательно",
+							required: isEnglish ? "This field is required" : "Это поле обязательно",
 							pattern: {
 								value: /^[A-Za-zА-Яа-яЁё\s'-]+$/,
-								message: "Имя может содержать только буквы",
+								message: isEnglish ? "Name can contain only letters" : "Имя может содержать только буквы",
 							},
 						})}
 						error={getErrorMessage(errors.name)}
@@ -34,12 +36,12 @@ export const ContactForm = () => {
 				<div className={styles.inputWrapper}>
 					<Input
 						type='tel'
-						placeholder='Телефон*'
+						placeholder={isEnglish ? "Phone*" : "Телефон*"}
 						{...register("phone", {
-							required: "Это поле обязательно",
+							required: isEnglish ? "This field is required" : "Это поле обязательно",
 							pattern: {
 								value: /^\+7\d{10}$/,
-								message: "Некорректный телефон",
+								message: isEnglish ? "Invalid phone number" : "Некорректный телефон",
 							},
 							onChange: (e) => {
 								let value = e.target.value;
@@ -61,10 +63,10 @@ export const ContactForm = () => {
 						type='email'
 						placeholder='E-mail*'
 						{...register("email", {
-							required: "Это поле обязательно",
+							required: isEnglish ? "This field is required" : "Это поле обязательно",
 							pattern: {
 								value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-								message: "Некорректный email",
+								message: isEnglish ? "Invalid email" : "Некорректный email",
 							},
 						})}
 						error={getErrorMessage(errors.email)}
@@ -74,8 +76,8 @@ export const ContactForm = () => {
 				<div className={styles.inputWrapper}>
 					<Input
 						type='text'
-						placeholder='Компания*'
-						{...register("company", { required: "Это поле обязательно" })}
+						placeholder={isEnglish ? "Company*" : "Компания*"}
+						{...register("company", { required: isEnglish ? "This field is required" : "Это поле обязательно" })}
 						error={getErrorMessage(errors.company)}
 					/>
 				</div>

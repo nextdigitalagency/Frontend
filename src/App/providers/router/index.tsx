@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -6,7 +6,7 @@ import PageTransition from "../../../Shared/ui/PageTransition/PageTransition";
 import InitialLoader from "../../../Shared/ui/InitialLoader/InitialLoader";
 import Header from "../../../Widgets/Header/Header";
 
-import { Approach, HomePage, PrivacyPage, ProjectsPage, ProjectPage } from "../../../Pages";
+import { Approach, HomePage, PrivacyPage } from "../../../Pages";
 
 const isDev = import.meta.env.MODE === "development";
 
@@ -36,21 +36,11 @@ const AnimatedRoutes = () => {
 				/>
 				<Route
 					path='/projects'
-					element={
-						<PageTransition>
-							<Header minimal />
-							<ProjectsPage />
-						</PageTransition>
-					}
+					element={<Navigate to='/' replace />}
 				/>
 				<Route
 					path='/projects/:slug'
-					element={
-						<PageTransition>
-							<Header />
-							<ProjectPage />
-						</PageTransition>
-					}
+					element={<Navigate to='/' replace />}
 				/>
 				<Route
 					path='/privacy'
