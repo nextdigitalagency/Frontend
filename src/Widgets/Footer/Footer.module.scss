@@ -1,6 +1,8 @@
 .footer {
+  --footer-height: 400px;
+
   position: relative;
-  height: 400px;
+  height: var(--footer-height);
   clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);
   background-color: var(--color-bg);
   color: #94a3b8;
@@ -13,13 +15,13 @@
 
 .footerContainer {
   position: relative;
-  height: calc(100vh + 350px);
+  height: calc(100vh + var(--footer-height));
   top: -100vh;
 }
 
 .main {
   position: sticky;
-  top: calc(100vh - 350px);
+  top: calc(100vh - var(--footer-height));
 }
 
 .container {
@@ -134,21 +136,9 @@
 
 @media (max-width: 768px) {
   .footer {
-    height: auto;
-    min-height: 0;
-    clip-path: none;
+    --footer-height: 610px;
+    min-height: var(--footer-height);
     padding: 64px 18px 28px;
-  }
-
-  .footerContainer {
-    position: static;
-    height: auto;
-    top: auto;
-  }
-
-  .main {
-    position: static;
-    top: auto;
   }
 
   .logo {

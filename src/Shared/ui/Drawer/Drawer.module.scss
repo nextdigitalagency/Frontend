@@ -375,6 +375,17 @@
   }
 }
 
+.submitMessage {
+  margin-top: 24px;
+  color: var(--color-primary);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.submitError {
+  color: red;
+}
+
 /* ===== Animations ===== */
 @keyframes slideUp {
   from { transform: translateY(100%); }

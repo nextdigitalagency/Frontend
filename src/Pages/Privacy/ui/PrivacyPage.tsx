@@ -144,7 +144,7 @@ const PrivacyPage: React.FC = () => {
 						9.2. Адрес: <b>[юридический адрес]</b>
 					</p>
 					<p>
-						9.3. Email: <b>info@[домен].ru</b>
+						9.3. Email: <b>hello@aerix.digital</b>
 					</p>
 					<p>
 						9.4. Телефон: <b>+7 (XXX) XXX-XX-XX</b>

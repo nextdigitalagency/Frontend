@@ -62,7 +62,7 @@ export default function Footer() {
 							<p className={styles.policy}>{isEnglish ? "Privacy policy" : "Политика конфидециальности"}</p>
 						</motion.div>
 						<motion.div variants={textAnimation} className={styles.fullscreen_menu_contacts}>
-							<p>+7 917 815-01-10 </p> | <p> info@gmail.com</p>
+							<p>+7 917 815-01-10 </p> | <p> hello@aerix.digital</p>
 						</motion.div>
 						<motion.div variants={textAnimation} className={styles.fullscreen_menu_social}>
 							<p>Telegram</p>

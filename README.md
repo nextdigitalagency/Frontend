@@ -17,6 +17,12 @@ docker compose up -d --build
 
 The application will be available at `http://localhost:3000`.
 
+If the backend is deployed on a separate domain, pass it at build time:
+
+```sh
+docker build --build-arg VITE_API_URL=https://api.aerix.digital -t aerix-frontend .
+```
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

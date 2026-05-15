@@ -20,14 +20,20 @@ type FormValues = {
 	phone: string;
 	email: string;
 	company: string;
+	message: string;
 	tags: string[];
 };
+
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 
 export const Drawer = ({ isOpen, onClose }: Props) => {
 	const [show, setShow] = useState(isOpen);
 	const [closing, setClosing] = useState(false);
 	const [selectedBudgetTag, setSelectedBudgetTag] = useState<string | null>(null);
 	const [consent, setConsent] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitMessage, setSubmitMessage] = useState<string | null>(null);
+	const [submitError, setSubmitError] = useState<string | null>(null);
 	const { isEnglish } = useLanguage();
 
 	// прокидываем тип
@@ -39,6 +45,7 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 			phone: "",
 			email: "",
 			company: "",
+			message: "",
 			tags: [],
 		},
 	});
@@ -59,8 +66,49 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 		});
 	}, [methods, isEnglish]);
 
-	const onSubmit = (data: FormValues) => {
-		console.log("Form submitted:", { ...data, selectedTags, selectedBudgetTag, consent });
+	const onSubmit = async (data: FormValues) => {
+		if (!selectedBudgetTag) {
+			setSubmitError(isEnglish ? "Please choose a budget" : "Выберите бюджет проекта");
+			return;
+		}
+
+		setIsSubmitting(true);
+		setSubmitError(null);
+		setSubmitMessage(null);
+
+		try {
+			const response = await fetch(`${API_BASE_URL}/api/leads`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					...data,
+					budget: selectedBudgetTag,
+					consent,
+					source: window.location.href,
+					language: isEnglish ? "en" : "ru",
+				}),
+			});
+
+			if (!response.ok) {
+				throw new Error("Request failed");
+			}
+
+			setSubmitMessage(isEnglish ? "Request sent. We will contact you soon." : "Заявка отправлена. Мы скоро свяжемся.");
+			methods.reset();
+			setSelectedBudgetTag(null);
+			setConsent(false);
+			setTagsTouched(false);
+		} catch {
+			setSubmitError(
+				isEnglish
+					? "Failed to send the request. Please try again later."
+					: "Не удалось отправить заявку. Попробуйте позже."
+			);
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	const [tagsTouched, setTagsTouched] = useState(false);
@@ -121,8 +169,10 @@ export const Drawer = ({ isOpen, onClose }: Props) => {
 								toggleBudgetTag={toggleBudgetTag}
 							/>
 							<ConsentCheckbox consent={consent} setConsent={setConsent} />
-							<button type='submit' className={styles.startButton} disabled={!consent || !isValid}>
-								{isEnglish ? "contact us" : "связаться с нами"}
+							{submitError && <p className={`${styles.submitMessage} ${styles.submitError}`}>{submitError}</p>}
+							{submitMessage && <p className={styles.submitMessage}>{submitMessage}</p>}
+							<button type='submit' className={styles.startButton} disabled={!consent || !isValid || isSubmitting}>
+								{isSubmitting ? (isEnglish ? "sending..." : "отправляем...") : isEnglish ? "contact us" : "связаться с нами"}
 							</button>
 						</form>
 					</FormProvider>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 import { TagsButtons } from "./TagsButtons";
 import styles from "../Drawer.module.scss";
 import { useLanguage } from "../../../lib/i18n";
@@ -12,8 +13,10 @@ type Props = {
 
 export const ProjectForm = ({ selectedTags, toggleTag, error, touched }: Props) => {
 	const { isEnglish } = useLanguage();
-	const [text, setText] = useState("");
-	const [textError, setTextError] = useState<string | null>(null);
+	const {
+		register,
+		formState: { errors },
+	} = useFormContext();
 	const [touchedTextarea, setTouchedTextarea] = useState(false);
 
 	const projectTags = isEnglish
@@ -27,19 +30,13 @@ export const ProjectForm = ({ selectedTags, toggleTag, error, touched }: Props) 
 		if (value.trim().length < 50) {
 			return isEnglish ? "At least 50 characters" : "Минимум 50 символов";
 		}
-		return null;
+		return true;
 	};
+
+	const messageError = errors.message?.message as string | undefined;
 
 	const handleBlur = () => {
 		setTouchedTextarea(true);
-		setTextError(validateTextarea(text));
-	};
-
-	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setText(e.target.value);
-		if (touchedTextarea) {
-			setTextError(validateTextarea(e.target.value));
-		}
 	};
 
 	return (
@@ -59,15 +56,16 @@ export const ProjectForm = ({ selectedTags, toggleTag, error, touched }: Props) 
 			<div className={styles.textareaWrapper}>
 				<textarea
 					placeholder={isEnglish ? "Tell us about your project*" : "Расскажите о вашем проекте*"}
-					value={text}
-					onChange={handleChange}
-					onBlur={handleBlur}
-					className={textError ? styles.textareaError : ""}
+					{...register("message", {
+						validate: validateTextarea,
+						onBlur: handleBlur,
+					})}
+					className={touchedTextarea && messageError ? styles.textareaError : ""}
 				/>
 				<button type='button' className={styles.fileButton}>
 					{isEnglish ? "Attach a file" : "📎 прикрепить файл"}
 				</button>
-				{textError && <p className={styles.errorText}>{textError}</p>}
+				{touchedTextarea && messageError && <p className={styles.errorText}>{messageError}</p>}
 			</div>
 
 			<div className={styles.guidingQuestions}>
