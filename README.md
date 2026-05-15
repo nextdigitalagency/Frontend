@@ -6,7 +6,7 @@ Build and run the production container:
 
 ```sh
 docker build -t aerix-frontend .
-docker run --rm -p 8080:80 aerix-frontend
+docker run --rm -p 3000:3000 aerix-frontend
 ```
 
 Or use Docker Compose:
@@ -15,7 +15,7 @@ Or use Docker Compose:
 docker compose up -d --build
 ```
 
-The application will be available at `http://localhost:8080`.
+The application will be available at `http://localhost:3000`.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
