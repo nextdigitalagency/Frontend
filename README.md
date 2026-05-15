@@ -1,5 +1,22 @@
 # React + TypeScript + Vite
 
+## Docker
+
+Build and run the production container:
+
+```sh
+docker build -t aerix-frontend .
+docker run --rm -p 8080:80 aerix-frontend
+```
+
+Or use Docker Compose:
+
+```sh
+docker compose up -d --build
+```
+
+The application will be available at `http://localhost:8080`.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
