@@ -4,12 +4,6 @@
   overflow-y: visible;
   background: var(--color-bg);
   color: var(--color-primary);
-  isolation: isolate;
-}
-
-.page > :not(:last-child) {
-  position: relative;
-  z-index: 1;
 }
 
 .hero {

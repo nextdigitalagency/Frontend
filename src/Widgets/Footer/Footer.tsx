@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-import { useEffect, useRef, useState } from "react";
 import { openDrawer } from "../../App/store/slices/drawerSlice";
 import Button from "../../Shared/ui/Button/Button";
 import styles from "./Footer.module.scss";
@@ -8,28 +7,10 @@ import { useLanguage } from "../../Shared/lib/i18n";
 export default function Footer() {
 	const dispatch = useDispatch();
 	const { isEnglish } = useLanguage();
-	const footerRef = useRef<HTMLElement | null>(null);
-	const [isFooterVisible, setIsFooterVisible] = useState(false);
-
-	useEffect(() => {
-		const footer = footerRef.current;
-		if (!footer) return;
-
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				setIsFooterVisible(entry.isIntersecting);
-			},
-			{ threshold: 0.01 }
-		);
-
-		observer.observe(footer);
-
-		return () => observer.disconnect();
-	}, []);
 
 	return (
-		<footer id='footer' className={styles.footer} ref={footerRef}>
-			<div className={`${styles.footerContainer} ${isFooterVisible ? styles.visible : ""}`}>
+		<footer className={styles.footer}>
+			<div className={styles.footerContainer}>
 				<div className={styles.main}>
 					<div className={styles.container}>
 						<div className={styles.col}>
