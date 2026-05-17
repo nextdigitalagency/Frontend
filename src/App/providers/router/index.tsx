@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -6,7 +6,7 @@ import PageTransition from "../../../Shared/ui/PageTransition/PageTransition";
 import InitialLoader from "../../../Shared/ui/InitialLoader/InitialLoader";
 import Header from "../../../Widgets/Header/Header";
 
-import { Approach, HomePage, PrivacyPage } from "../../../Pages";
+import { Approach, ContactsPage, HomePage, NotFoundPage, PrivacyPage, ProjectsComingSoon } from "../../../Pages";
 
 const isDev = import.meta.env.MODE === "development";
 
@@ -36,17 +36,45 @@ const AnimatedRoutes = () => {
 				/>
 				<Route
 					path='/projects'
-					element={<Navigate to='/' replace />}
+					element={
+						<PageTransition>
+							<Header />
+							<ProjectsComingSoon />
+						</PageTransition>
+					}
 				/>
 				<Route
 					path='/projects/:slug'
-					element={<Navigate to='/' replace />}
+					element={
+						<PageTransition>
+							<Header />
+							<ProjectsComingSoon />
+						</PageTransition>
+					}
+				/>
+				<Route
+					path='/contacts'
+					element={
+						<PageTransition>
+							<Header />
+							<ContactsPage />
+						</PageTransition>
+					}
 				/>
 				<Route
 					path='/privacy'
 					element={
 						<PageTransition>
 							<PrivacyPage />
+						</PageTransition>
+					}
+				/>
+				<Route
+					path='*'
+					element={
+						<PageTransition>
+							<Header inverseOnTop />
+							<NotFoundPage />
 						</PageTransition>
 					}
 				/>

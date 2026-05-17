@@ -65,10 +65,15 @@ body {
   line-height: 1.5;
   color: var(--color-text);
   background-color: var(--color-bg);
-  user-select: none;
+  user-select: text;
   width: 100%;
   overflow-x: hidden;
 
+}
+
+button,
+a {
+  user-select: none;
 }
 
 input,

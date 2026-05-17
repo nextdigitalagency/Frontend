@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { Fragment, type FC, type ReactNode } from "react";
 import { Helmet } from "@dr.pogodin/react-helmet";
 import { motion, useScroll } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -149,12 +149,126 @@ const faqEn = [
 	},
 ];
 
+const projectFormats = [
+	{
+		number: "01",
+		title: "Корпоративная платформа",
+		description: "Главная витрина компании, услуги, доверие, заявки и понятная структура для роста.",
+		tags: ["b2b", "website", "cms"],
+	},
+	{
+		number: "02",
+		title: "Личный кабинет",
+		description: "Закрытая зона для клиентов, партнеров или команды: роли, данные, документы, уведомления.",
+		tags: ["product", "backend", "ui"],
+	},
+	{
+		number: "03",
+		title: "Промо-запуск",
+		description: "Отдельная digital-кампания для продукта, события, услуги или нового направления бизнеса.",
+		tags: ["landing", "motion", "seo"],
+	},
+	{
+		number: "04",
+		title: "Редизайн и поддержка",
+		description: "Аккуратно обновляем текущий сайт: UX, скорость, визуальная система, формы и аналитика.",
+		tags: ["audit", "refactor", "support"],
+	},
+];
+
+const projectFormatsEn = [
+	{
+		number: "01",
+		title: "Corporate platform",
+		description: "The main company website: services, trust, leads and a clear structure for growth.",
+		tags: ["b2b", "website", "cms"],
+	},
+	{
+		number: "02",
+		title: "Client account",
+		description: "A private area for clients, partners or teams: roles, data, documents and notifications.",
+		tags: ["product", "backend", "ui"],
+	},
+	{
+		number: "03",
+		title: "Promo launch",
+		description: "A digital campaign for a product, event, service or a new business direction.",
+		tags: ["landing", "motion", "seo"],
+	},
+	{
+		number: "04",
+		title: "Redesign and support",
+		description: "We update existing websites: UX, speed, visual system, forms and analytics.",
+		tags: ["audit", "refactor", "support"],
+	},
+];
+
 const SectionLabel = ({ number, label }: { number: string; label: string }) => (
-	<p className={styles.sectionLabel}>
+	<motion.p
+		className={styles.sectionLabel}
+		initial={{ opacity: 0, x: -22 }}
+		whileInView={{ opacity: 1, x: 0 }}
+		viewport={{ once: true, amount: 0.45 }}
+		transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
 		<span>{number}</span>
 		<span>/</span>
 		{label}
-	</p>
+	</motion.p>
+);
+
+const textContainer = {
+	hidden: {},
+	visible: {
+		transition: {
+			staggerChildren: 0.045,
+		},
+	},
+};
+
+const textItem = {
+	hidden: { opacity: 0, y: 26 },
+	visible: { opacity: 1, y: 0 },
+};
+
+const cardContainer = {
+	hidden: {},
+	visible: {
+		transition: {
+			staggerChildren: 0.08,
+		},
+	},
+};
+
+const cardItem = {
+	hidden: { opacity: 0, y: 28 },
+	visible: { opacity: 1, y: 0 },
+};
+
+const RevealItem = ({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) => (
+	<motion.div
+		className={className}
+		initial={{ opacity: 0, y: 34 }}
+		whileInView={{ opacity: 1, y: 0 }}
+		viewport={{ once: true, amount: 0.22 }}
+		transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}>
+		{children}
+	</motion.div>
+);
+
+const AnimatedHeading = ({ text }: { text: string }) => (
+	<motion.h2
+		variants={textContainer}
+		initial='hidden'
+		whileInView='visible'
+		viewport={{ once: true, amount: 0.38 }}>
+		{text.split(" ").map((word, index) => (
+			<Fragment key={`${word}-${index}`}>
+				<motion.span className={styles.wordReveal} variants={textItem}>
+					{word}
+				</motion.span>{" "}
+			</Fragment>
+		))}
+	</motion.h2>
 );
 
 const HomePage: FC = () => {
@@ -167,9 +281,16 @@ const HomePage: FC = () => {
 	const currentWorkflow = isEnglish ? workflowEn : workflow;
 	const currentReasons = isEnglish ? reasonsEn : reasons;
 	const currentFaq = isEnglish ? faqEn : faq;
+	const currentProjectFormats = isEnglish ? projectFormatsEn : projectFormats;
 	const heroTags = isEnglish
 		? ["web development", "design", "integrations", "seo", "analytics", "support"]
 		: ["web-разработка", "дизайн", "интеграции", "seo", "аналитика", "поддержка"];
+	const heroTitleParts = isEnglish
+		? ["Digital", "production", "for companies", "that need", "a stronger", "web presence."]
+		: ["Digital-", "продакшн", "для компаний,", "которым нужен", "сильный", "web."];
+	const heroLeadLines = isEnglish
+		? ["We plan, design and build websites, services", "and online tools.", "We take a product from the first idea", "to a stable launch and growth."]
+		: ["Проектируем и дизайним.", "Разрабатываем сайты, сервисы", "и онлайн-инструменты.", "Ведем продукт от идеи", "до стабильной работы."];
 
 	return (
 		<Wrapper>
@@ -217,200 +338,263 @@ const HomePage: FC = () => {
 			<main className={styles.page}>
 				<section className={styles.hero}>
 					<div className={styles.heroGhost}>AERIX</div>
-					<div className={styles.heroTopline}>
+					<motion.div
+						className={styles.heroTopline}
+						initial={{ opacity: 0, y: 18 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.65, delay: 0.1 }}>
 						<span className={styles.logoDot}>A</span>
-						<span>Aerix / studio</span>
-					</div>
+						<span>{isEnglish ? "Aerix / digital production" : "Aerix / digital-продакшн"}</span>
+					</motion.div>
 
 					<div className={styles.heroGrid}>
 						<div className={styles.heroCopy}>
-							<p className={styles.kicker}>000 / web · design · growth</p>
-							<h1>
-								{isEnglish ? (
-									<>
-										<span>We launch </span>
-										<span>digital </span>
-										<span>products </span>
-										<span>that move </span>
-										<span>business </span>
-										<span>forward.</span>
-									</>
-								) : (
-									<>
-										<span>Запускаем </span>
-										<span>digital </span>
-										<span>продукты, </span>
-										<span>которые </span>
-										<span>двигают </span>
-										<span>бизнес.</span>
-									</>
-								)}
-							</h1>
-							<p className={styles.lead}>
-								{isEnglish ? (
-									<>
-										<span>We plan, design and build websites, services </span>
-										<span>and online tools. </span>
-										<span>We take a product from the first idea </span>
-										<span>to a stable launch and growth.</span>
-									</>
-								) : (
-									<>
-										<span>Проектируем и дизайним. </span>
-										<span>Разрабатываем сайты, сервисы </span>
-										<span>и онлайн-инструменты. </span>
-										<span>Ведем продукт от идеи </span>
-										<span>до стабильной работы.</span>
-									</>
-								)}
-							</p>
-							<div className={styles.heroActions}>
-								<Button className={styles.primaryButton} onClick={() => dispatch(openDrawer())}>
-									{isEnglish ? "Start a project" : "Начать проект"}
-									<ArrowUpRight size={18} aria-hidden='true' />
-								</Button>
-								<a className={styles.secondaryLink} href='/approach'>
+							<motion.p className={styles.kicker} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, delay: 0.18 }}>
+								001 / strategy · design · code · growth
+							</motion.p>
+							<motion.h1 variants={textContainer} initial='hidden' animate='visible'>
+								{heroTitleParts.map((part, index) => (
+									<motion.span variants={textItem} key={`${part}-${index}`}>
+										{part}{" "}
+									</motion.span>
+								))}
+							</motion.h1>
+							<motion.p className={styles.lead} variants={textContainer} initial='hidden' animate='visible'>
+								{heroLeadLines.map((line, index) => (
+									<motion.span variants={textItem} key={`${line}-${index}`}>
+										{line}{" "}
+									</motion.span>
+								))}
+							</motion.p>
+							<motion.div className={styles.heroActions} variants={cardContainer} initial='hidden' animate='visible'>
+								<motion.div variants={cardItem}>
+									<Button className={styles.primaryButton} onClick={() => dispatch(openDrawer())}>
+										{isEnglish ? "Start a project" : "Начать проект"}
+										<ArrowUpRight size={18} aria-hidden='true' />
+									</Button>
+								</motion.div>
+								<motion.a className={styles.secondaryLink} href='/approach' variants={cardItem}>
 									{isEnglish ? "Services" : "Услуги"}
 									<ArrowUpRight size={16} aria-hidden='true' />
-								</a>
-							</div>
+								</motion.a>
+							</motion.div>
 						</div>
 
-						<div className={styles.heroAside}>
-							<div className={styles.statLine}>
+						<motion.div className={styles.heroAside} variants={cardContainer} initial='hidden' animate='visible'>
+							<motion.div className={styles.statLine} variants={cardItem}>
 								<span>{isEnglish ? "[ 8+ years ]" : "[ 8+ лет ]"}</span>
 								<p>
 									{isEnglish
 										? "Experience in digital development and launching business projects."
 										: "Опыт в digital-разработке и запуске проектов для бизнеса."}
 								</p>
-							</div>
-							<div className={styles.statLine}>
+							</motion.div>
+							<motion.div className={styles.statLine} variants={cardItem}>
 								<span>{isEnglish ? "[ one team ]" : "[ одна команда ]"}</span>
 								<p>
 									{isEnglish
 										? "Strategy, design, frontend, backend, analytics and support."
 										: "Стратегия, дизайн, frontend, backend, аналитика и поддержка."}
 								</p>
-							</div>
-							<div className={styles.signalPanel}>
+							</motion.div>
+							<motion.div className={styles.signalPanel} variants={cardItem}>
 								<video src={abstractVideo} autoPlay loop muted playsInline />
 								<div>
 									<span>live stack</span>
 									<p>web · ui/ux · seo · analytics · support</p>
 								</div>
-							</div>
-						</div>
+							</motion.div>
+						</motion.div>
 					</div>
 
-					<div className={styles.heroTags}>
-						{heroTags.map((tag) => (
-							<span key={tag}>{tag}</span>
+					<motion.div className={styles.heroTags} variants={cardContainer} initial='hidden' animate='visible'>
+						{heroTags.map((tag, index) => (
+							<motion.span variants={cardItem} key={tag} transition={{ delay: index * 0.04 }}>
+								{tag}
+							</motion.span>
 						))}
-					</div>
+					</motion.div>
 				</section>
 
 				<div className={styles.marquee} aria-hidden='true'>
 					<div>
-						Web development · UI/UX · SEO · Analytics · Support · Web development · UI/UX · SEO ·
-						Analytics · Support ·
+						Aerix digital production · Strategy · UX/UI · Frontend · Backend · Analytics · Support ·
+						Aerix digital production · Strategy · UX/UI · Frontend · Backend · Analytics · Support ·
 					</div>
 				</div>
 
+				<section className={styles.projectFormatsSection} id='launch-lab'>
+					<SectionLabel number='01' label={isEnglish ? "launch lab · project formats" : "launch lab · форматы запусков"} />
+					<div className={styles.formatsIntro}>
+						<AnimatedHeading text={isEnglish
+							? "A launch lab for the web products your business can start with."
+							: "Лаборатория запусков для web-продуктов, с которых можно начать."}
+						/>
+						<RevealItem>
+							<p>
+								{isEnglish
+									? "Choose the closest format: we quickly turn it into a first release, then grow it with data, design and engineering."
+									: "Выберите ближайший формат: мы быстро превращаем его в первую версию, а затем развиваем через данные, дизайн и разработку."}
+							</p>
+						</RevealItem>
+					</div>
+
+					<div className={styles.formatGrid}>
+						{currentProjectFormats.map((format, index) => (
+							<motion.article
+								className={styles.formatCard}
+								key={format.number}
+								variants={cardContainer}
+								initial='hidden'
+								whileInView='visible'
+								viewport={{ once: true, amount: 0.25 }}
+								transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}>
+								<div className={styles.formatMedia}>
+									<motion.span variants={cardItem}>{format.number}</motion.span>
+									<motion.strong variants={cardItem}>{format.title}</motion.strong>
+								</div>
+								<div className={styles.formatBody}>
+									<motion.p variants={cardItem}>{format.description}</motion.p>
+									<motion.div variants={cardContainer}>
+										{format.tags.map((tag) => (
+											<motion.span variants={cardItem} key={tag}>{tag}</motion.span>
+										))}
+									</motion.div>
+								</div>
+							</motion.article>
+						))}
+					</div>
+				</section>
+
 				<section className={styles.servicesSection}>
-					<SectionLabel number='01' label='services · what we do' />
+					<SectionLabel number='02' label='directions · what we do' />
 					<div className={styles.sectionIntro}>
-						<h2>{isEnglish ? "Four directions, one team behind them." : "Четыре направления, одна команда за ними."}</h2>
-						<p>
-							{isEnglish
-								? "You can come with a new idea, an outdated website or a product that already works. We assemble the right team around the task and bring it to launch."
-								: "Можно прийти с новой идеей, устаревшим сайтом или продуктом, который уже работает. Мы собираем вокруг задачи нужный состав и доводим ее до запуска."}
-						</p>
+						<AnimatedHeading text={isEnglish ? "Four directions, one team behind them." : "Четыре направления, одна команда за ними."} />
+						<RevealItem>
+							<p>
+								{isEnglish
+									? "You can come with a new idea, an outdated website or a product that already works. We assemble the right team around the task and bring it to launch."
+									: "Можно прийти с новой идеей, устаревшим сайтом или продуктом, который уже работает. Мы собираем вокруг задачи нужный состав и доводим ее до запуска."}
+							</p>
+						</RevealItem>
 					</div>
 
 					<div className={styles.serviceRows}>
-						{currentServices.map((service) => (
-							<article className={styles.serviceRow} key={service.number}>
-								<span className={styles.rowNumber}>{service.number}</span>
-								<h3>{service.title}</h3>
-								<p>{service.description}</p>
-								<div className={styles.rowTags}>
+						{currentServices.map((service, index) => (
+							<motion.article
+								className={styles.serviceRow}
+								key={service.number}
+								variants={cardContainer}
+								initial='hidden'
+								whileInView='visible'
+								viewport={{ once: true, amount: 0.35 }}
+								transition={{ duration: 0.55, delay: index * 0.06 }}>
+								<motion.span className={styles.rowNumber} variants={cardItem}>{service.number}</motion.span>
+								<motion.h3 variants={cardItem}>{service.title}</motion.h3>
+								<motion.p variants={cardItem}>{service.description}</motion.p>
+								<motion.div className={styles.rowTags} variants={cardContainer}>
 									{service.tags.map((tag) => (
-										<span key={tag}>{tag}</span>
+										<motion.span variants={cardItem} key={tag}>{tag}</motion.span>
 									))}
-								</div>
+								</motion.div>
 								<ArrowUpRight className={styles.rowIcon} size={22} aria-hidden='true' />
-							</article>
+							</motion.article>
 						))}
 					</div>
 				</section>
 
 				<section className={styles.workflowSection}>
-					<SectionLabel number='02' label='workflow · how we work' />
+					<SectionLabel number='03' label='workflow · how we work' />
 					<div className={styles.sectionIntro}>
-						<h2>{isEnglish ? "A process without a black box." : "Процесс без черного ящика."}</h2>
-						<p>
-							{isEnglish
-								? "Each stage leaves a clear artifact: structure, prototype, working version, tests, metrics or a growth plan."
-								: "Каждый этап оставляет понятный артефакт: структуру, прототип, рабочую версию, тесты, метрики или план развития."}
-						</p>
+						<AnimatedHeading text={isEnglish ? "A process without a black box." : "Процесс без черного ящика."} />
+						<RevealItem>
+							<p>
+								{isEnglish
+									? "Each stage leaves a clear artifact: structure, prototype, working version, tests, metrics or a growth plan."
+									: "Каждый этап оставляет понятный артефакт: структуру, прототип, рабочую версию, тесты, метрики или план развития."}
+							</p>
+						</RevealItem>
 					</div>
 
 					<div className={styles.workflowGrid}>
-						{currentWorkflow.map(([number, title, description]) => (
-							<article className={styles.workflowCard} key={number}>
-								<span>{number}</span>
-								<h3>{title}</h3>
-								<p>{description}</p>
-							</article>
+						{currentWorkflow.map(([number, title, description], index) => (
+							<motion.article
+								className={styles.workflowCard}
+								key={number}
+								variants={cardContainer}
+								initial='hidden'
+								whileInView='visible'
+								viewport={{ once: true, amount: 0.28 }}
+								transition={{ delay: index * 0.04 }}>
+								<motion.span variants={cardItem}>{number}</motion.span>
+								<motion.h3 variants={cardItem}>{title}</motion.h3>
+								<motion.p variants={cardItem}>{description}</motion.p>
+							</motion.article>
 						))}
 					</div>
 				</section>
 
 				<section className={styles.reasonsSection}>
-					<SectionLabel number='03' label='why aerix · the practical part' />
+					<SectionLabel number='04' label='why aerix · the practical part' />
 					<div className={styles.reasonLayout}>
-						<h2>{isEnglish ? "Calm engineering work instead of a showcase for show." : "Спокойная инженерная работа вместо витрины ради витрины."}</h2>
+						<AnimatedHeading text={isEnglish ? "Calm engineering work instead of a showcase for show." : "Спокойная инженерная работа вместо витрины ради витрины."} />
 						<div className={styles.reasonList}>
 							{currentReasons.map((reason, index) => (
-								<div className={styles.reasonItem} key={reason}>
+								<motion.div
+									className={styles.reasonItem}
+									key={reason}
+									initial={{ opacity: 0, x: 28 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true, amount: 0.48 }}
+									transition={{ duration: 0.55, delay: index * 0.07 }}>
 									<span>{String(index + 1).padStart(2, "0")}</span>
 									<p>{reason}</p>
-								</div>
+								</motion.div>
 							))}
 						</div>
 					</div>
 				</section>
 
 				<section className={styles.faqSection}>
-					<SectionLabel number='04' label='faq · before the brief' />
+					<SectionLabel number='05' label='faq · before the brief' />
 					<div className={styles.sectionIntro}>
-						<h2>{isEnglish ? "Answers before the first call." : "Ответы до первого созвона."}</h2>
+						<AnimatedHeading text={isEnglish ? "Answers before the first call." : "Ответы до первого созвона."} />
 					</div>
 					<div className={styles.faqList}>
-						{currentFaq.map((item) => (
-							<article className={styles.faqItem} key={item.question}>
-								<h3>{item.question}</h3>
-								<p>{item.answer}</p>
-							</article>
+						{currentFaq.map((item, index) => (
+							<motion.article
+								className={styles.faqItem}
+								key={item.question}
+								variants={cardContainer}
+								initial='hidden'
+								whileInView='visible'
+								viewport={{ once: true, amount: 0.34 }}
+								transition={{ delay: index * 0.05 }}>
+								<motion.h3 variants={cardItem}>{item.question}</motion.h3>
+								<motion.p variants={cardItem}>{item.answer}</motion.p>
+							</motion.article>
 						))}
 					</div>
 				</section>
 
-				<section className={styles.contactSection}>
+				<section className={styles.contactSection} id='contact'>
 					<div>
-						<SectionLabel number='05' label='contact · start' />
-						<h2>{isEnglish ? "Tell us what needs to be launched or rebuilt." : "Расскажите, что нужно запустить или переделать."}</h2>
-						<p>
-							{isEnglish
-								? "A short description is enough: the task, timeline, what already exists and where the project is stuck."
-								: "Короткого описания достаточно: задача, сроки, что уже есть и где сейчас застревает проект."}
-						</p>
+						<SectionLabel number='06' label='contact · start' />
+						<AnimatedHeading text={isEnglish ? "Tell us what needs to be launched or rebuilt." : "Расскажите, что нужно запустить или переделать."} />
+						<RevealItem>
+							<p>
+								{isEnglish
+									? "A short description is enough: the task, timeline, what already exists and where the project is stuck."
+									: "Короткого описания достаточно: задача, сроки, что уже есть и где сейчас застревает проект."}
+							</p>
+						</RevealItem>
 					</div>
-					<Button className={styles.primaryButton} onClick={() => dispatch(openDrawer())}>
-						{isEnglish ? "Discuss the project" : "Обсудить проект"}
-						<ArrowUpRight size={18} aria-hidden='true' />
-					</Button>
+					<RevealItem delay={0.12}>
+						<Button className={styles.primaryButton} onClick={() => dispatch(openDrawer())}>
+							{isEnglish ? "Discuss the project" : "Обсудить проект"}
+							<ArrowUpRight size={18} aria-hidden='true' />
+						</Button>
+					</RevealItem>
 				</section>
 			</main>
 			<Footer />
